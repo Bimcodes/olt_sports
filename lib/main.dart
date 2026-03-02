@@ -1,0 +1,25 @@
+import 'package:flutter/material.dart';
+
+import 'mvc/views/splash/splash_screen.dart';
+import 'theme/app_colors.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Olt Sports',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.backgroundGreen),
+        useMaterial3: true,
+      ),
+      home: const SplashScreen(),
+    );
+  }
+}
