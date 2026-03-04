@@ -15,16 +15,12 @@ class OnboardingPage extends StatelessWidget {
       children: [
         // Background Image Placeholder Area
         Positioned.fill(
-          child: Container(
-            color: Colors.black12,
-            alignment: Alignment.topCenter,
-            padding: const EdgeInsets.only(top: 150),
-            child: Text(
-              item.imagePlaceholder,
-              style: const TextStyle(color: Colors.white54),
+          child: SizedBox.expand(
+            child: Image.asset(
+              item.imagePath,
+              fit: BoxFit.cover,
+              alignment: Alignment.topCenter,
             ),
-            // TODO: Uncomment once assets are provided
-            // child: Image.asset(item.imagePath, fit: BoxFit.cover),
           ),
         ),
         // Gradient Overlay

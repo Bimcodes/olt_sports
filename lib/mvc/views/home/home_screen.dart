@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
         ),
         title: Center(
           child: Image.asset(
-            'assets/images/logo.png', // We'll need this asset
+            'assets/splash_screen.png', // We'll need this asset
             height: 32,
             errorBuilder:
                 (context, error, stackTrace) => const Text(
@@ -52,13 +52,12 @@ class HomeScreen extends StatelessWidget {
             Container(
               height: 200,
               width: double.infinity,
-              color: Colors.grey[300], // Placeholder for Hero Graphic
-              // child: Image.asset('assets/images/hero.png', fit: BoxFit.cover),
-              alignment: Alignment.center,
-              child: const Text(
-                'Hero Banner Asset Required',
-                style: TextStyle(color: Colors.black54),
-              ),
+              alignment: Alignment.center, // Placeholder for Hero Graphic
+              child: Image.asset('assets/home_screen.png', fit: BoxFit.cover),
+              // child: const Text(
+              //   'Hero Banner Asset Required',
+              //   style: TextStyle(color: Colors.black54),
+              // ),
             ),
             const SizedBox(height: 16),
 

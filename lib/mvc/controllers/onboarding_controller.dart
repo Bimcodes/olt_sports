@@ -13,22 +13,17 @@ class OnboardingController extends ChangeNotifier {
       title: 'Welcome to OLT SPORTS!',
       description:
           'Your ultimate destination for sports streaming, news and merchandise.',
-      imagePlaceholder: 'Image 1: Fan with hands up',
+      imagePath: 'assets/onboarding_1_main.png',
+    ),
+    OnboardingItem(
+      title: 'Wear your team pride',
+      description: 'Shop official jerseys, merchandise, and more...',
+      imagePath: 'assets/onboarding_2_background.png',
     ),
     OnboardingItem(
       title: 'Stay ahead of the game..',
       description: 'Get the latest sports news, updates, and analysis',
-      imagePlaceholder: 'Image 2: Laptops analysis',
-    ),
-    OnboardingItem(
-      title: 'Wear your team pride',
-      description: 'Shop official jerseys, merchandise, and more...',
-      imagePlaceholder: 'Image 3: Green tribal jersey',
-    ),
-    OnboardingItem(
-      title: 'Wear your team pride',
-      description: 'Shop official jerseys, merchandise, and more...',
-      imagePlaceholder: 'Image 4: Blue jersey hanging',
+      imagePath: 'assets/onboarding_3_.png',
     ),
   ];
 
