@@ -79,9 +79,9 @@ class LiveScreen extends StatelessWidget {
         child: Container(
           margin: const EdgeInsets.only(bottom: 16),
           child: MatchCard(
-            team1Logo: '',
+            team1Logo: 'assets/Manchester United.png',
             team1Name: 'Manchester U..',
-            team2Logo: '',
+            team2Logo: 'assets/Chelsea 1.png',
             team2Name: 'Chelsea',
             dateString: 'January 6th, 2021.',
             isLive: !isHighlight, // If not highlight, it's a generic match

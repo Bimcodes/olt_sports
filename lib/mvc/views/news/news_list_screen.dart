@@ -76,7 +76,7 @@ class NewsListScreen extends StatelessWidget {
           subtitle:
               'Nigeria should host the FIFA World Cup, says Patrice Motsepe.',
           dateString: 'January 5th, 2022.',
-          imagePath: '', // Require asset
+          imagePath: 'assets/caf_president.png', // Require asset
         );
       },
     );

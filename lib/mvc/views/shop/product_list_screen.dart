@@ -44,7 +44,7 @@ class ProductListScreen extends StatelessWidget {
             category: 'Male',
             priceString: '₦0,000',
             inStock: isEven, // Alternate stock status
-            imagePath: '',
+            imagePath: 'assets/nigeria_jersey.png',
             onTap: () {
               Navigator.push(
                 context,

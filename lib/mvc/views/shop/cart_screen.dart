@@ -267,6 +267,9 @@ class _CartScreenState extends State<CartScreen> {
               color: Colors.grey.shade100,
               borderRadius: BorderRadius.circular(16),
               border: Border.all(color: Colors.black12),
+              image: DecorationImage(
+                image: AssetImage('assets/man_city jersey.png'),
+              ),
             ),
           ),
           const SizedBox(width: 16),

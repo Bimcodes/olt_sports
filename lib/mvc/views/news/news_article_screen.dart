@@ -45,11 +45,15 @@ class NewsArticleScreen extends StatelessWidget {
               Container(
                 height: 200,
                 width: double.infinity,
-                color: Colors.amber, // Placeholder for the yellow/green image
+                // color: Colors.amber, // Placeholder for the yellow/green image
                 alignment: Alignment.center,
-                child: const Text(
-                  'Featured Image Asset Required',
-                  style: TextStyle(color: Colors.black54),
+                // child: const Text(
+                //   'Featured Image Asset Required',
+                //   style: TextStyle(color: Colors.black54),
+                // ),
+                child: Image.asset(
+                  'assets/caf_president.png',
+                  fit: BoxFit.cover,
                 ),
               ),
               const SizedBox(height: 24),

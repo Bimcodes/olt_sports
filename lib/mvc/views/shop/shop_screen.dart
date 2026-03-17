@@ -78,9 +78,9 @@ class ShopScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           const Spacer(),
-                          const Text(
-                            'Featured Product Image',
-                            style: TextStyle(color: Colors.black54),
+                          Image.asset(
+                            'assets/Liverpool 1.png',
+                            fit: BoxFit.cover,
                           ),
                           const Spacer(),
                           // Dots indicator
@@ -165,7 +165,7 @@ class ShopScreen extends StatelessWidget {
               category: 'Male',
               priceString: '₦0,000',
               inStock: true,
-              imagePath: '',
+              imagePath: 'assets/man_city jersey.png',
               onTap: () {
                 Navigator.push(
                   context,
@@ -184,7 +184,7 @@ class ShopScreen extends StatelessWidget {
               category: 'Male',
               priceString: '₦0,000',
               inStock: false,
-              imagePath: '',
+              imagePath: 'assets/chelsea jersey.png',
               onTap: () {
                 Navigator.push(
                   context,
@@ -203,7 +203,7 @@ class ShopScreen extends StatelessWidget {
               category: 'Male',
               priceString: '₦0,000',
               inStock: true,
-              imagePath: '',
+              imagePath: 'assets/foden_42.png',
               onTap: () {
                 Navigator.push(
                   context,

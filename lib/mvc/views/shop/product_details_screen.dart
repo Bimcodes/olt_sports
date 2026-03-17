@@ -45,9 +45,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       border: Border.all(color: Colors.black12),
                     ),
                     alignment: Alignment.center,
-                    child: const Text(
-                      'Main Image',
-                      style: TextStyle(color: Colors.black54),
+                    // child: const Text(
+                    //   'Main Image',
+                    //   style: TextStyle(color: Colors.black54),
+                    // ),
+                    child: Image.asset(
+                      'assets/man_city jersey.png',
+                      fit: BoxFit.cover,
                     ),
                   ),
                   const SizedBox(width: 24),
@@ -259,6 +263,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         color: Colors.grey.shade100,
         shape: BoxShape.circle,
         border: Border.all(color: Colors.black12),
+        image: DecorationImage(image: AssetImage('assets/man_city jersey.png')),
       ),
     );
   }
@@ -277,7 +282,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               category: 'Male',
               priceString: '₦0,000',
               inStock: true,
-              imagePath: '',
+              imagePath: 'assets/man_u jersey.png',
               onTap: () {},
             ),
           ),
@@ -289,7 +294,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               category: 'Male',
               priceString: '₦0,000',
               inStock: false,
-              imagePath: '',
+              imagePath: 'assets/chelsea jersey.png',
               onTap: () {},
             ),
           ),

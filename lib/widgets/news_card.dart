@@ -33,7 +33,10 @@ class NewsCard extends StatelessWidget {
           color: Colors.grey[300], // Placeholder context color
           borderRadius: BorderRadius.circular(12),
           // Normally we use an DecorationImage here once assets are generated
-          // image: DecorationImage(image: AssetImage(imagePath), fit: BoxFit.cover),
+          image: DecorationImage(
+            image: AssetImage(imagePath),
+            fit: BoxFit.cover,
+          ),
         ),
         child: Stack(
           children: [

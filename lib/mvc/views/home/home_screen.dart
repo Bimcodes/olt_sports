@@ -97,17 +97,17 @@ class HomeScreen extends StatelessWidget {
                 clipBehavior: Clip.none, // Allow shadows to be visible
                 children: const [
                   MatchCard(
-                    team1Logo: '',
+                    team1Logo: 'assets/Manchester United.png',
                     team1Name: 'Manchester U..',
-                    team2Logo: '',
+                    team2Logo: 'assets/Chelsea 1.png',
                     team2Name: 'Chelsea',
                     dateString: 'January 6th, 2021.',
                     isLive: true,
                   ),
                   MatchCard(
-                    team1Logo: '',
+                    team1Logo: 'assets/Manchester United.png',
                     team1Name: 'Manchester U..',
-                    team2Logo: '',
+                    team2Logo: 'assets/Chelsea 1.png',
                     team2Name: 'Chelsea',
                     dateString: 'January 6th, 2021.',
                     isLive: false,
@@ -151,7 +151,7 @@ class HomeScreen extends StatelessWidget {
                     subtitle:
                         'Nigeria should host the FIFA World Cup says Patrice Motsepe.',
                     dateString: 'January 5th , 2023.',
-                    imagePath: '', // Require asset
+                    imagePath: 'assets/caf_president.png', // Require asset
                   );
                 },
               ),
@@ -173,9 +173,13 @@ class HomeScreen extends StatelessWidget {
                       height: 150,
                       color: Colors.grey[200], // Placeholder
                       alignment: Alignment.center,
-                      child: const Text(
-                        'Jersey 1',
-                        style: TextStyle(color: Colors.black54),
+                      // child: const Text(
+                      //   'Jersey 1',
+                      //   style: TextStyle(color: Colors.black54),
+                      // ),
+                      child: Image.asset(
+                        'assets/nigeria_jersey.png',
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
@@ -185,9 +189,13 @@ class HomeScreen extends StatelessWidget {
                       height: 150,
                       color: Colors.grey[200], // Placeholder
                       alignment: Alignment.center,
-                      child: const Text(
-                        'Jersey 2',
-                        style: TextStyle(color: Colors.black54),
+                      // child: const Text(
+                      //   'Jersey 2',
+                      //   style: TextStyle(color: Colors.black54),
+                      // ),
+                      child: Image.asset(
+                        'assets/ronaldo.png',
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
@@ -230,7 +238,7 @@ class HomeScreen extends StatelessWidget {
                     subtitle:
                         'Nigeria should host the FIFA World Cup says Patrice Motsepe.',
                     dateString: 'January 5th , 2023.',
-                    imagePath: '', // Require asset
+                    imagePath: 'assets/caf_president.png', // Require asset
                   );
                 },
               ),

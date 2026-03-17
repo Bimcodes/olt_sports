@@ -118,9 +118,9 @@ class _ProductCardState extends State<ProductCard> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   alignment: Alignment.center,
-                  child: const Text(
-                    'Jersey Image View',
-                    style: TextStyle(color: Colors.black54, fontSize: 10),
+                  child: Image.asset(
+                    widget.imagePath,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),

@@ -55,14 +55,14 @@ class HighlightsScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // Team 1
-                  _buildLogoAndName('Nigeria', Colors.green),
+                  _buildLogoAndName('Nigeria', 'assets/nigeria.png', Colors.green),
                   // VS
                   Text(
                     'Vs',
                     style: AppTextStyles.authSubtitle.copyWith(fontSize: 16),
                   ),
                   // Team 2
-                  _buildLogoAndName('Ghana', Colors.red),
+                  _buildLogoAndName('Ghana', 'assets/ghana.png', Colors.red),
                 ],
               ),
               const SizedBox(height: 24),
@@ -85,7 +85,7 @@ class HighlightsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildLogoAndName(String name, Color color) {
+  Widget _buildLogoAndName(String name, String assets, Color color) {
     return Column(
       children: [
         Container(
@@ -105,10 +105,11 @@ class HighlightsScreen extends StatelessWidget {
             ],
           ),
           child: Center(
-            child: Container(
+            child: SizedBox(
               width: 50,
               height: 50,
-              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              // decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              child: Image.asset(assets, fit: BoxFit.cover),
             ),
           ),
         ),

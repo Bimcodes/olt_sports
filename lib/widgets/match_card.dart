@@ -58,10 +58,11 @@ class MatchCard extends StatelessWidget {
                 Expanded(
                   child: Row(
                     children: [
-                      Container(
+                      SizedBox(
                         width: 24,
                         height: 24,
-                        color: Colors.red[200],
+                        // color: Colors.red[700],
+                        child: Image.asset(team1Logo),
                       ), // Placeholder
                       const SizedBox(width: 8),
                       Expanded(
@@ -106,10 +107,11 @@ class MatchCard extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      Container(
+                      SizedBox(
                         width: 24,
                         height: 24,
-                        color: Colors.blue[200],
+                        // color: Colors.blue[200],
+                        child: Image.asset(team2Logo),
                       ), // Placeholder
                     ],
                   ),

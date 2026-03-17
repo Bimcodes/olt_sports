@@ -37,16 +37,7 @@ class MatchDetailsScreen extends StatelessWidget {
                   color: AppColors.backgroundGreen,
                   shape: BoxShape.circle,
                 ),
-                child: const Center(
-                  child: Text(
-                    'CAF',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
-                  ),
-                ),
+                child: Center(child: Image.asset('assets/caf.png')),
               ),
               const SizedBox(height: 32),
 
@@ -55,14 +46,17 @@ class MatchDetailsScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // Team 1 Logo
-                  _buildLargeLogoPlaceholder(Colors.green),
+                  _buildLargeLogoPlaceholder(
+                    Colors.green,
+                    'assets/nigeria.png',
+                  ),
                   // VS Text
                   Text(
                     'VS',
                     style: AppTextStyles.authSubtitle.copyWith(fontSize: 16),
                   ),
                   // Team 2 Logo
-                  _buildLargeLogoPlaceholder(Colors.red),
+                  _buildLargeLogoPlaceholder(Colors.red, 'assets/ghana.png'),
                 ],
               ),
               const SizedBox(height: 24),
@@ -131,18 +125,24 @@ class MatchDetailsScreen extends StatelessWidget {
                         Container(
                           width: 24,
                           height: 24,
-                          decoration: const BoxDecoration(
-                            color: Colors.green,
+                          decoration: BoxDecoration(
+                            // color: Colors.green,
                             shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: AssetImage('assets/nigeria.png'),
+                            ),
                           ),
                         ),
                         const SizedBox(width: 8),
                         Container(
                           width: 24,
                           height: 24,
-                          decoration: const BoxDecoration(
-                            color: Colors.red,
+                          decoration: BoxDecoration(
+                            // color: Colors.red,
                             shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: AssetImage('assets/ghana.png'),
+                            ),
                           ),
                         ),
                       ],
@@ -203,12 +203,12 @@ class MatchDetailsScreen extends StatelessWidget {
   }
 
   // Helper for the large placeholder logos with nice shadows
-  Widget _buildLargeLogoPlaceholder(Color color) {
+  Widget _buildLargeLogoPlaceholder(Color color, String asset) {
     return Container(
-      width: 100,
-      height: 100,
+      width: 90,
+      height: 90,
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.2), // Light background
+        // color: color.withValues(alpha: 0.2), // Light background
         shape: BoxShape.circle,
         border: Border.all(color: Colors.white, width: 4), // White border
         boxShadow: [
@@ -221,10 +221,11 @@ class MatchDetailsScreen extends StatelessWidget {
         ],
       ),
       child: Center(
-        child: Container(
+        child: SizedBox(
           width: 80,
           height: 80,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          // decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          child: Image.asset(asset, fit: BoxFit.cover),
         ),
       ),
     );
