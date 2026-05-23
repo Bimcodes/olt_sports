@@ -5,6 +5,8 @@ import 'dart:math';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../error/exceptions.dart';
+
 /// Provider for the Dio HTTP client
 ///
 /// This creates a single instance of Dio that can be shared across the app.
@@ -62,6 +64,57 @@ class _LoggingInterceptor extends Interceptor {
   void onError(DioException err, ErrorInterceptorHandler handler) {
     print('❌ ERROR: ${err.type} ${err.message}');
     handler.next(err);
+  }
+}
+
+/// Extension to convert DioException to ApiException
+///
+/// This helper converts Dio's exceptions to our app-specific exceptions,
+/// maintaining a clean separation between network layer and business logic.
+extension DioExceptionX on DioException {
+  ApiException toApiException() {
+    switch (type) {
+      case DioExceptionType.connectionTimeout:
+      case DioExceptionType.sendTimeout:
+      case DioExceptionType.receiveTimeout:
+      case DioExceptionType.connectionError:
+        return const NetworkException();
+
+      case DioExceptionType.badResponse:
+        final statusCode = response?.statusCode;
+        final message = _extractErrorMessage(response);
+
+        return switch (statusCode ?? 400) {
+          400 => BadRequestException(message: message),
+          401 => const UnauthorizedException(),
+          >= 500 && < 600 => ServerException(
+            message: message,
+            statusCode: statusCode,
+          ),
+          _ => ServerException(message: message, statusCode: statusCode),
+        };
+
+      case DioExceptionType.cancel:
+        return const ServerException(message: 'Request cancelled');
+
+      default:
+        return ServerException(message: message ?? 'Unknown error');
+    }
+  }
+
+  /// Extracts error message from API response
+  String _extractErrorMessage(Response? response) {
+    try {
+      final data = response?.data;
+      if (data is Map<String, dynamic>) {
+        return data['message'] as String? ??
+            data['error'] as String? ??
+            'An error occurred';
+      }
+      return 'An error occurred';
+    } catch (_) {
+      return 'An error occurred';
+    }
   }
 }
 

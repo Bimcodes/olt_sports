@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../features/news/news_article_screen.dart';
+import '../../features/news/presentation/screens/news_article_screen.dart';
 
 class NewsCard extends StatelessWidget {
   final String title;

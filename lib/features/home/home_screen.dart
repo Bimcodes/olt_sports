@@ -4,7 +4,7 @@ import '../../core/theme/app_colors.dart';
 import '../../core/widgets/match_card.dart';
 import '../../core/widgets/news_card.dart';
 import '../../core/widgets/section_header.dart';
-import '../news/news_list_screen.dart';
+import '../news/presentation/screens/news_list_screen.dart';
 import '../standings/standings_screen.dart';
 
 class HomeScreen extends StatelessWidget {

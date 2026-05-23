@@ -30,17 +30,17 @@ abstract class NewsRemoteDatasource {
 /// 3. Throws appropriate exceptions on errors
 
 class NewsRemoteDatasourceImpl implements NewsRemoteDatasource {
-  // final Dio _dio;
+  final Dio _dio;
 
   /// Creates the data source with a Dio client
   ///
   /// The Dio client is injected for testability.
-  NewsRemoteDatasourceImpl([Dio? dio]) ;
+  NewsRemoteDatasourceImpl([Dio? dio]) : _dio = dio ?? DioClient.createDio();
 
   @override
   Future<List<NewsResponseDto>> fetchNews(NewsRequestDto request) async {
     try {
-      final response = await dio.get(
+      final response = await _dio.get(
         '/posts',
         queryParameters: request.toJson(),
       );
