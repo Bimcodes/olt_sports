@@ -5,7 +5,10 @@ import 'core/theme/app_colors.dart';
 import 'features/splash/splash_screen.dart';
 
 void main() {
-  runApp(ProviderScope(child: const MyApp()));
+  // Ensure Flutter bindings are initialized
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(ProviderScope(child:  MyApp()));
 }
 
 class MyApp extends StatelessWidget {
