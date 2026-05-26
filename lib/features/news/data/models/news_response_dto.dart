@@ -70,7 +70,7 @@ class NewsResponseDto {
 
       author: json['author'] ?? 0,
 
-      categories: json['categories'] ?? [],
+      categories: List<int>.from(json['categories'] ?? const []),
     );
   }
 

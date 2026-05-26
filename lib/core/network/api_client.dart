@@ -1,5 +1,6 @@
 // ignore_for_file: unused_element, avoid_print
 
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:dio/dio.dart';
@@ -57,6 +58,11 @@ class _LoggingInterceptor extends Interceptor {
     print(
       '📥 RESPONSE: ${response.statusCode} ${response.requestOptions.path}',
     );
+    if (response.data != null) {
+      print(
+        '   Data: ${const JsonEncoder.withIndent('  ').convert(response.data)}',
+      );
+    }
     handler.next(response);
   }
 
@@ -154,8 +160,9 @@ class _RetryInterceptor extends Interceptor {
   bool _shouldRetry(DioException err) {
     if (err.type == DioExceptionType.connectionTimeout ||
         err.type == DioExceptionType.sendTimeout ||
-        err.type == DioExceptionType.receiveTimeout)
+        err.type == DioExceptionType.receiveTimeout) {
       return true;
+    }
     final status = err.response?.statusCode ?? 0;
     return status >= 500 && status < 600;
   }

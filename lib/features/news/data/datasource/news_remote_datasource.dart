@@ -7,6 +7,7 @@
 // =============================================================================
 
 import 'package:dio/dio.dart';
+import 'package:logger/logger.dart';
 import 'package:olt_sports/features/news/data/models/news_request_dto.dart';
 import 'package:olt_sports/features/news/data/models/news_response_dto.dart';
 
@@ -40,12 +41,14 @@ class NewsRemoteDatasourceImpl implements NewsRemoteDatasource {
   @override
   Future<List<NewsResponseDto>> fetchNews(NewsRequestDto request) async {
     try {
+      var logger = Logger();
       final response = await _dio.get(
         '/posts',
         queryParameters: request.toJson(),
       );
       if (response.statusCode == 200) {
         final data = response.data as List<dynamic>;
+        logger.d('API Response: $data'); // Debug log
         return data
             .map(
               (json) => NewsResponseDto.fromJson(json as Map<String, dynamic>),

@@ -27,7 +27,7 @@ import 'package:flutter_riverpod/legacy.dart';
 import 'package:olt_sports/features/news/data/datasource/news_remote_datasource.dart';
 import 'package:olt_sports/features/news/data/repositories/news_repository_impl.dart';
 import 'package:olt_sports/features/news/domain/repositories/news_repository.dart';
-import 'package:olt_sports/features/news/presentation/application/news_uistate.dart';
+import 'package:olt_sports/features/news/presentation/application/news_uistate_new.dart';
 import 'package:olt_sports/features/news/presentation/application/news_viewmodel.dart';
 
 import '../../../../core/network/api_client.dart';
@@ -69,9 +69,9 @@ final newsRepositoryProvider = Provider<NewsRepository>((ref) {
 /// ref.read(newsNotifierProvider.notifier).loadNews();
 /// ```
 ///
-final newsNotifierProvider = StateNotifierProvider<NewsNotifier, NewsUistate>((
+final newsNotifierProvider = StateNotifierProvider<NewsViewModel, NewsUIState>((
   ref,
 ) {
   final repository = ref.watch(newsRepositoryProvider);
-  return NewsNotifier(repository);
+  return NewsViewModel(repository);
 });

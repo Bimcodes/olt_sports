@@ -10,7 +10,7 @@ class NewsModel {
   final String excerpt;
   final String image;
   final int author;
-  final List<dynamic> categories;
+  final List<int> categories;
 
   const NewsModel({
     required this.id,
@@ -26,7 +26,7 @@ class NewsModel {
   });
 
   /// Creates a NewsModel from JSON
-  factory NewsModel.fromJson(Map<String,dynamic> json){
+  factory NewsModel.fromJson(Map<String, dynamic> json) {
     return NewsModel(
       id: json['id'] as int,
       date: json['date'] as String,
@@ -37,12 +37,12 @@ class NewsModel {
       excerpt: json['excerpt'] as String,
       image: json['image'] as String,
       author: json['author'] as int,
-      categories: json['categories'] as List<dynamic>,
+      categories: List<int>.from(json['categories'] ?? const []),
     );
   }
 
   /// Converts this model to JSON
-  Map<String, dynamic> toJson(){
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'date': date,
@@ -72,6 +72,7 @@ class NewsModel {
       categories: categories,
     );
   }
+
   /// Creates a NewsModel from a domain [News] entity
   factory NewsModel.fromEntity(News news) {
     return NewsModel(

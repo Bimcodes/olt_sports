@@ -41,7 +41,7 @@ class News {
   final int author;
 
   /// List of category IDs the post belongs to
-  final List<dynamic> categories;
+  final List<int> categories;
 
   const News({
     required this.id,

@@ -1,17 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:olt_sports/features/news/presentation/application/news_providers.dart';
+import 'package:olt_sports/features/news/presentation/application/news_uistate_new.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../core/widgets/match_card.dart';
 import '../../core/widgets/news_card.dart';
 import '../../core/widgets/section_header.dart';
+import '../news/presentation/screens/news_article_screen.dart';
 import '../news/presentation/screens/news_list_screen.dart';
 import '../standings/standings_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      ref.read(newsProvider.notifier).fetchNews();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final state = ref.watch(newsProvider);
+    final topStories = _newsSlice(state, start: 0, count: 4);
+    final transferNews = _newsSlice(state, start: 4, count: 4);
+
     return Scaffold(
       backgroundColor:
           AppColors.authBackground, // Using the white background from Auth
@@ -135,26 +156,7 @@ class HomeScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                  childAspectRatio: 0.75, // Taller cards
-                ),
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return const NewsCard(
-                    title: 'EPL 2023/2024',
-                    subtitle:
-                        'Nigeria should host the FIFA World Cup says Patrice Motsepe.',
-                    dateString: 'January 5th , 2023.',
-                    imagePath: 'assets/caf_president.png', // Require asset
-                  );
-                },
-              ),
+              child: _buildNewsGrid(context, topStories),
             ),
             const SizedBox(height: 24),
 
@@ -222,32 +224,77 @@ class HomeScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                  childAspectRatio: 0.75,
-                ),
-                itemCount: 4, // Shows 4 items
-                itemBuilder: (context, index) {
-                  return const NewsCard(
-                    title: 'EPL 2023/2024',
-                    subtitle:
-                        'Nigeria should host the FIFA World Cup says Patrice Motsepe.',
-                    dateString: 'January 5th , 2023.',
-                    imagePath: 'assets/caf_president.png', // Require asset
-                  );
-                },
-              ),
+              child: _buildNewsGrid(context, transferNews),
             ),
             const SizedBox(height: 48), // Bottom padding for nav bar clearance
           ],
         ),
       ),
     );
+  }
+
+  Widget _buildNewsGrid(BuildContext context, List<dynamic> articles) {
+    if (articles.isEmpty) {
+      return const Padding(
+        padding: EdgeInsets.symmetric(vertical: 24.0),
+        child: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 16,
+        mainAxisSpacing: 16,
+        childAspectRatio: 0.75,
+      ),
+      itemCount: articles.length,
+      itemBuilder: (context, index) {
+        final news = articles[index];
+
+        return NewsCard(
+          title: news.title ?? 'No title',
+          subtitle: news.excerpt ?? 'No excerpt',
+          dateString: news.date ?? 'Unknown date',
+          imagePath: news.image ?? 'assets/caf_president.png',
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder:
+                    (_) => NewsArticleScreen(
+                      title: news.title ?? 'No title',
+                      dateString: news.date ?? 'Unknown date',
+                      content: news.content,
+                      excerpt: news.excerpt,
+                      imagePath: news.image,
+                    ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  List<dynamic> _newsSlice(
+    NewsUIState state, {
+    required int start,
+    required int count,
+  }) {
+    final items = state.newsList;
+    if (items.isEmpty) {
+      return [];
+    }
+
+    final sliced = items.skip(start).take(count).toList();
+    if (sliced.isNotEmpty) {
+      return sliced;
+    }
+
+    return items.take(count).toList();
   }
 
   Widget _buildLeagueTab(String name, {required bool isSelected}) {

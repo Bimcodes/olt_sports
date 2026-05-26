@@ -1,12 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
-import '../../features/news/presentation/screens/news_article_screen.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:olt_sports/core/helper/format_date_time.dart';
 
 class NewsCard extends StatelessWidget {
   final String title;
   final String subtitle;
   final String dateString;
-  final String imagePath; // Asset path
+  final String imagePath;
+  final void Function()? onTap;
 
   const NewsCard({
     super.key,
@@ -14,78 +16,107 @@ class NewsCard extends StatelessWidget {
     required this.subtitle,
     required this.dateString,
     required this.imagePath,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder:
-                (_) => NewsArticleScreen(title: title, dateString: dateString),
-          ),
-        );
-      },
+      onTap: onTap,
       child: Container(
+        width: 220,
         decoration: BoxDecoration(
-          color: Colors.grey[300], // Placeholder context color
+          color: Colors.white,
           borderRadius: BorderRadius.circular(12),
-          // Normally we use an DecorationImage here once assets are generated
-          image: DecorationImage(
-            image: AssetImage(imagePath),
-            fit: BoxFit.cover,
-          ),
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 6,
+              color: Colors.black.withOpacity(0.1),
+              offset: const Offset(0, 3),
+            ),
+          ],
         ),
-        child: Stack(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Gradient Overlay to make text readable
-            Positioned.fill(
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.transparent,
-                      Colors.black.withValues(alpha: 0.7),
-                    ],
-                  ),
-                ),
+            /// IMAGE
+            ClipRRect(
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(12),
+              ),
+              child: CachedNetworkImage(
+                imageUrl: imagePath,
+                height: 120,
+                width: double.infinity,
+                fit: BoxFit.cover,
+
+                placeholder:
+                    (context, url) => Container(
+                      height: 140,
+                      color: Colors.grey[300],
+                      child: const Center(child: CircularProgressIndicator()),
+                    ),
+
+                errorWidget:
+                    (context, url, error) => Container(
+                      height: 140,
+                      color: Colors.grey[300],
+                      child: const Icon(Icons.broken_image, size: 40),
+                    ),
               ),
             ),
-            // Text Content
-            Positioned(
-              left: 12,
-              right: 12,
-              bottom: 12,
+            // SizedBox(height: 12),
+
+            /// TEXT SECTION
+            Padding(
+              padding: const EdgeInsets.all(4),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                  Html(
+                    data: title,
+                    style: {
+                      'body': Style(
+                        fontWeight: FontWeight.bold,
+                        fontSize: FontSize(14),
+                        maxLines: 1,
+                        textOverflow: TextOverflow.ellipsis,
+                      ),
+                    },
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    subtitle,
-                    style: const TextStyle(color: Colors.white, fontSize: 10),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+
+                  
+                  Html(
+                    data: subtitle,
+                    style: {
+                      'body': Style(
+                        color: Colors.grey[700],
+                        fontSize: FontSize(12),
+                        maxLines: 2,
+                        textOverflow: TextOverflow.ellipsis,
+                      ),
+                    },
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    dateString,
-                    style: const TextStyle(color: Colors.white70, fontSize: 9),
+
+                  // Text(
+                  //   subtitle,
+                  //   style: TextStyle(color: Colors.grey[700], fontSize: 12),
+                  //   maxLines: 2,
+                  //   overflow: TextOverflow.ellipsis,
+                  // ),
+                  // const SizedBox(height: 8),
+                  // Text(
+                  //   dateString,
+                  //   style: TextStyle(color: Colors.grey[500], fontSize: 10),
+                  // ),
+                  Html(
+                    data: formatNewsDateTime(dateString),
+                    style: {
+                      'body': Style(
+                        color: Colors.grey[500],
+                        fontSize: FontSize(8),
+                      ),
+                    },
                   ),
                 ],
               ),
